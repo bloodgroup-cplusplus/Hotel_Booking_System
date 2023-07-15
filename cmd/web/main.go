@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/handlers"
 )
 
 var portNumber = ":8080"
@@ -85,8 +87,8 @@ func main() {
 
 	// Routing
 
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/about", About)
+	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/about", handlers.About)
 	http.HandleFunc("/divide", Divide)
 	_, _ = fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 
