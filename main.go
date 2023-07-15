@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 )
 
@@ -12,7 +11,7 @@ var portNumber = ":8080"
 // let's pretend we are building website of two pages
 
 // Home is the home page handler
-func Home(w http.ResponseWriter, r *http.Request) {
+/*func Home(w http.ResponseWriter, r *http.Request) {
 
 	//fmt.Fprintf(w, "This is the home page")
 
@@ -27,7 +26,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 	//_, _ = fmt.Fprintf(w, fmt.Sprintf("This is the about page and 2+2 is %d", sum))
 	renderTemplate(w, "about.page.tmpl")
 
-}
+}*/
 
 // add values add two integers and returns the sum
 
@@ -57,7 +56,7 @@ func divideValues(x, y float32) (float32, error) {
 	return result, nil
 }
 
-func renderTemplate(w http.ResponseWriter, tmpl string) {
+/*func renderTemplate(w http.ResponseWriter, tmpl string) {
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
 	err := parsedTemplate.Execute(w, nil)
 	if err != nil {
@@ -65,7 +64,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 		return
 	}
 
-}
+}*/
 
 // main is the main entry point
 
