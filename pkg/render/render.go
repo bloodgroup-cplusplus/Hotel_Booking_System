@@ -31,7 +31,17 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	// get the template cache from the app config
 	// we don't want to create the cache every time we create it
-	tc := app.TemplateCache
+
+	// seperate it for development and production mode
+
+	var tc map[string]*template.Template
+
+	if app.UseCache {
+
+		tc = app.TemplateCache
+	} else {
+		tc, _ = CreateTemplateCache()
+	}
 
 	t, ok := tc[tmpl]
 	if !ok {
