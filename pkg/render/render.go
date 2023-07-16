@@ -6,9 +6,23 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/config"
 )
 
 //Renders Template using html template
+
+var functions = template.FuncMap{
+	// arguement is a pointer
+
+}
+
+var app *config.AppConfig
+
+func NewTemplates(a *config.AppConfig) {
+	app = a
+
+}
 
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
@@ -17,28 +31,21 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	// get the template cache from the app config
 	// we don't want to create the cache every time we create it
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
-	}
+	tc := app.TemplateCache
 
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	buf := new(bytes.Buffer)
 
-	err = t.Execute(buf, nil)
-
-	if err != nil {
-		log.Println(err)
-	}
+	_ = t.Execute(buf, nil)
 
 	//render the template
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 	if err != nil {
-		log.Println(err)
+		log.Println("Error writing template to browser", err)
 	}
 
 }
