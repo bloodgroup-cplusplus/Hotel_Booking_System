@@ -14,6 +14,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
 	// get the template (requested template from cache)
 	// render the template
+
+	// get the template cache from the app config
+	// we don't want to create the cache every time we create it
 	tc, err := CreateTemplateCache()
 	if err != nil {
 		log.Fatal(err)
