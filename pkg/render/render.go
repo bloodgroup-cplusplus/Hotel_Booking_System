@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/config"
+	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/models"
 )
 
 //Renders Template using html template
@@ -24,7 +25,13 @@ func NewTemplates(a *config.AppConfig) {
 
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+
+	return td
+
+}
+
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	// create a template cache
 	// get the template (requested template from cache)
 	// render the template
@@ -50,7 +57,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	_ = t.Execute(buf, nil)
+	td = AddDefaultData((td))
+
+	_ = t.Execute(buf, td)
 
 	//render the template
 	_, err := buf.WriteTo(w)
