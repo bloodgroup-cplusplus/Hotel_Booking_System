@@ -3,9 +3,12 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/config"
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/handlers"
+	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/render"
 )
 
 var portNumber = ":8080"
@@ -87,9 +90,18 @@ func main() {
 
 	// Routing
 
+	var app config.AppConfig
+
+	// how do we get template cache where it is
+	tc, err := render.CreateTemplateCache()
+	if err != nil {
+		log.Fatal("cannot create templatecache")
+	}
+	app.TemplateCache = tc
+
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/about", handlers.About)
-	http.HandleFunc("/divide", Divide)
+	//http.HandleFunc("/divide", Divide)
 	_, _ = fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 
 	_ = http.ListenAndServe(portNumber, nil)

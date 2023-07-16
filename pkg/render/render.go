@@ -14,7 +14,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
 	// get the template (requested template from cache)
 	// render the template
-	tc, err := createTemplateCache()
+	tc, err := CreateTemplateCache()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 }
 
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	// we are going to be returning a map of pointer string to template.tempalte
 	// we will create a variable
 
