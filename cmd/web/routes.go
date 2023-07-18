@@ -33,6 +33,8 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Use(middleware.Recoverer)
 	// let's use more middlewares in upcoming lectures
 	// let's write to console
+	mux.Use(NoSurf)
+	mux.Use(SessionLoad)
 
 	// writing custom middlewares when anyone visits the website
 	mux.Use(WriteToConsole)

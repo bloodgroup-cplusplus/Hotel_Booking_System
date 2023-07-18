@@ -5,13 +5,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/config"
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/handlers"
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/render"
 )
 
 var portNumber = ":8080"
+var app config.AppConfig
+var session *scs.SessionManager
 
 // let's pretend we are building website of two pages
 
@@ -90,7 +94,20 @@ func main() {
 
 	// Routing
 
-	var app config.AppConfig
+	// change this to true when in production
+	app.InProduction = false
+
+	// Create session
+
+	session = scs.New()
+	// how long do i want my session to live for
+	session.Lifetime = 24 * time.Hour
+	// persist session cookies
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = app.InProduction
+	// in
+	app.Session = session
 
 	// how do we get template cache where it is
 	tc, err := render.CreateTemplateCache()
