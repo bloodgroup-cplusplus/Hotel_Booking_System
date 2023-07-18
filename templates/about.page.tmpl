@@ -10,6 +10,15 @@
 
         <p> This came form the template : {{index .StringMap "test"}}</p>
 
+        <p>
+          {{if ne (index.StringMap "remote_ip") ""}}
+             {{index.StringMap}}
+          {{else}}
+            I don't know your ip address
+          {{end}}
+
+        </p>
+
 
         </div>
       </div>
