@@ -6,6 +6,7 @@ import (
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/config"
 	"github.com/bloodgroup-cplusplus/Hotel_Booking_System/pkg/handlers"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
 func routes(app *config.AppConfig) http.Handler {
@@ -28,6 +29,13 @@ func routes(app *config.AppConfig) http.Handler {
 	// let's create a new chi mux
 
 	mux := chi.NewRouter()
+	// how to use middlewares to recover from a panic that program goes
+	mux.Use(middleware.Recoverer)
+	// let's use more middlewares in upcoming lectures
+	// let's write to console
+
+	// writing custom middlewares when anyone visits the website
+	mux.Use(WriteToConsole)
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
 
