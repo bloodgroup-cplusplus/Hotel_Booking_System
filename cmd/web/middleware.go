@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/justinas/nosurf"
+
 )
 
 func WriteToConsole(next http.Handler) http.Handler {
@@ -36,3 +37,4 @@ func SessionLoad(next http.Handler) http.Handler {
 	// the client in a cookie.
 	return session.LoadAndSave((next))
 }
+abcdefghij
